@@ -10,8 +10,12 @@ from rest_framework.response import Response
 
 # 身份认定的话，由于有了先前的login操作，就不会是数据库没有的openid
 # 返回的应该是这个所选的课程的id和类型，在选课信息表中特定的编号,并且在数据库中存进这个信息
-#如果已经有了相应的信息就返
+#如果已经有了相应的信息就返对应的信息
+'''
+如果用户填写的邀请码没有错,那返回的errmsg都是ok，如果邀请码填写错误是invitation fill in error!
+如果是身份不对应(老师填了学生的，学生填了老师的),errmsg是role do not match
 
+'''
 
 class vertify(APIView):
     def post(self, request, *args, **kwargs):
@@ -24,18 +28,25 @@ class vertify(APIView):
         # 根据courseid和用户特色信息得到selected_course_id
         selected_course_id = ''
         '''防止邀请码填写错误'''
-        if course.objects.filter(course_id=courseid).first().exits:
+        if course.objects.filter(course_id=courseid).first().exits:  # 如果课程存在,即，没有填错信息
+
             if wuser_info.objects.filter(opend_id=openid).first().role == '0':  # 如果是游客
                 wuser_info.objects.filter(opend_id=openid).updata(role=role)  # 存入角色信息,如果以
+            else:  # 如果不是游客填写邀请码
+                if wuser_info.objects.filter(opend_id=openid).first().role != role:
+                    return Response({
+                        'errmsg': 'role do not match'
+                    })
 
-            if courese_selected.objects.filter(cou_se_id=selected_course_id).exists:  # 如果选课信息存在
 
+
+            if courese_selected.objects.filter(cou_se_id=selected_course_id).exists:  # 如果选课信息存在，即重复填写了邀请码
                 return Response({
                     'errmsg':'ok',
                     'se_course_id': selected_course_id,
                 })
             else:  # 如果是真的第一次选课,
-                if role == '1':  # 如果是学生
+                if role == '1':  # 如果是学生  存入分数默认0分
                     courese_selected.objects.create(cou_se_id=selected_course_id, stu_id=openid, cou_id=courseid)
                     course_type = course.objects.all().filter(course_id=courseid).first().cou_type
                     return Response({
