@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .user import vertify , tes ,login
+from .user import vertify , tes ,login ,updata
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login.login.as_view()),
     path('vertify/', vertify.vertify.as_view()),
+    path('')
     #path('tes/', tes.search),
 ]
