@@ -9,7 +9,7 @@ import requests
 '''
 接收的参数，，openid,role
 '''
-class fu(APIView):
+class renew(APIView):
     def post(self,request,*args,**kwargs):
         open_id = request.data.get('openid')
         role = request.data.get('role')
