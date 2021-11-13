@@ -20,7 +20,7 @@ class login(APIView):
         }
         result = requests.get(url='https://api.weixin.qq.com/sns/jscode2session',params=info)
         id = result.json()['openid']
-        session_key =result.json()['session_key']
+        #session_key =result.json()['session_key']
         course_id_list = []
         course_type_list = []
         se_course_id_list = []
@@ -37,7 +37,7 @@ class login(APIView):
                   #  ai_score_list.append(var.ai_scoure_one)
                 return Response({
                     'open_id': id,
-                    'session_key':session_key,
+                    #'session_key':session_key,
                     'role': '1',
                     'course_id_list': course_id_list,
                     'se_course_id_list': se_course_id_list,
@@ -57,7 +57,7 @@ class login(APIView):
 
                 return Response({
                     'open_id': id,
-                    'session_key': session_key,
+                    #'session_key': session_key,
                     'role': '2',
                     'course_id':course_id,
                     'stud_id_list': stud_list,
@@ -67,7 +67,7 @@ class login(APIView):
             else:   # 依旧是普通游客
                 return Response({
                     'open_id': id,
-                    'session_key': session_key,
+                    #'session_key': session_key,
                     'role': '0'
                 })
                 pass
@@ -81,7 +81,7 @@ class login(APIView):
             # 'course_id_list': course_id_list,  # 返回空的值?
 
                 'open_id': id,
-                'session_key': session_key,
+                #'session_key': session_key,
                 'role': '0'
             })
 

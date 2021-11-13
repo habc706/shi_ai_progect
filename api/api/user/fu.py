@@ -7,7 +7,7 @@ import requests
 
 
 '''
-接收的参数，，openid,role
+接收的参数，，openid,role,此接口用于数据刷新，由于创建时姓名取错，为了减少可能的错误不再改名
 '''
 class renew(APIView):
     def post(self,request,*args,**kwargs):
