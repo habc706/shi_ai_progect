@@ -14,7 +14,8 @@ class course(models.Model):
     cou_type = models.CharField(max_length=1)
 
 class course_score(models.Model):
-    cou_id = models.CharField(primary_key=True,max_length=30)  # 课程id
+    score_id = models.AutoField(primary_key= True, default='1')  # 注意这里不能是直接的数字
+    cou_id = models.CharField(max_length=30)  # 课程id
     stud_id = models.CharField(max_length=30)  # 学生id
     number = models.IntegerField()  # 第几次的
     real_score = models.IntegerField()  # 实际分数
