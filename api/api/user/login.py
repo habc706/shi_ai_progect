@@ -19,11 +19,12 @@ class login(APIView):
             "grant_type":'authorization_code'
         }
         result = requests.get(url='https://api.weixin.qq.com/sns/jscode2session',params=info)
-        id = result.json()['openid']
+        #id = result.json()['openid']
+        id = 'guo'
         #session_key =result.json()['session_key']
         course_id_list = []
         course_type_list = []
-        se_course_id_list = []
+        #se_course_id_list = []
 
         if wuser_info.objects.filter(opend_id=id).exists(): #如果用户存在
 
@@ -31,7 +32,7 @@ class login(APIView):
                 list2 = courese_selected.objects.filter(stu_id=id)  # 所有学生选过的课程
                 # ai_score_list=[]
                 for var in list2:
-                    se_course_id_list.append(var.cou_se_id)
+                    #se_course_id_list.append(var.cou_se_id)
                     course_id_list.append(var.cou_id)
                     course_type_list.append(course.objects.all().filter(course_id=var.cou_id).first().cou_type)
                   #  ai_score_list.append(var.ai_scoure_one)
@@ -40,7 +41,7 @@ class login(APIView):
                     #'session_key':session_key,
                     'role': '1',
                     'course_id_list': course_id_list,
-                    'se_course_id_list': se_course_id_list,
+                   # 'se_course_id_list': se_course_id_list,
                     'course_type_list': course_type_list,  # ai成绩和课程id，课程类型，选课信息表有顺序的关系
                 })
             elif wuser_info.objects.filter(opend_id=id).first().role == '2':  # 如果是老师,老师可能开多个班级？ x
@@ -60,7 +61,7 @@ class login(APIView):
                     #'session_key': session_key,
                     'role': '2',
                     'course_id':course_id,
-                    'stud_id_list': stud_list,
+                    'stud_id_list': stud_list,  # 这两个list是一一对应的
                     'stud_name_list': stud_name_list
                 })
 

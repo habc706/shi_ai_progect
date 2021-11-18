@@ -8,6 +8,7 @@ import requests
 
 '''
 接收的参数，，openid,role,此接口用于数据刷新，由于创建时姓名取错，为了减少可能的错误不再改名
+请在前端设置好游客用户（未填写邀请码）不能调用该接口的操作
 '''
 class renew(APIView):
     def post(self,request,*args,**kwargs):
@@ -25,11 +26,10 @@ class renew(APIView):
                 course_type_list.append(course.objects.all().filter(course_id=var.cou_id).first().cou_type)
             #  ai_score_list.append(var.ai_scoure_one)
             return Response({
-                'open_id': open_id,
-                'role': '1',
+                #'role': '1',
                 'course_id_list': course_id_list,
-                'se_course_id_list': se_course_id_list,
-                'course_type_list': course_type_list,  # ai成绩和课程id，课程类型，选课信息表有顺序的关系
+                'se_course_id_list': se_course_id_list, #
+                'course_type_list': course_type_list,  # ai成绩和课程id，课程类型，选课信息表有顺序的一一对应关系
             })
 
         else:  #老师刷新
@@ -45,8 +45,8 @@ class renew(APIView):
                     stud_name_list.append(wuser_info.objects.filter(opend_id=var.stu_id).first().name)
 
             return Response({
-                'open_id': open_id,
-                'role': '2',
+
+                #'role': '2',
                 'course_id': course_id,
                 'stud_id_list': stud_list,
                 'stud_name_list': stud_name_list
