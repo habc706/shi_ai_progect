@@ -12,7 +12,7 @@ class course(models.Model):
     course_id = models.CharField(primary_key=True,max_length=30)
     cou_info = models.CharField(max_length=300)
     cou_type = models.CharField(max_length=1)
-
+    #打分规则填写
 
 
 class course_score(models.Model):
@@ -21,6 +21,7 @@ class course_score(models.Model):
     stud_id = models.CharField(max_length=30)  # 学生id
     number = models.IntegerField()  # 第几次的
     real_score = models.IntegerField()  # 实际分数
+    evaluate = models.CharField(max_length=200,null=True)  # 可以为空
 
 
 # 该表的主要作用是记录学生选了什么课，老师开了什么课
@@ -29,8 +30,7 @@ class courese_selected(models.Model):
     cou_id = models.CharField(max_length=30)
     stu_id=models.CharField(max_length=30,null=True)
     tea_id=models.CharField(max_length=30,null=True)
-    #ai_scoure_one=models.IntegerField(default=0)  最终的分数是由course_score记录，无需在此记录
-   # scoure_one=models.CharField(max_length=30,default='')
+
 
 
 
