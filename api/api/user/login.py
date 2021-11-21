@@ -6,12 +6,11 @@ from database.models import courese_selected
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
-from rest_framework import serializers
-
 
 class login(APIView):
     def post(self,request,*args,**kwargs):
         wx_code = request.data.get('code')
+        username = request.data.get('username')
         info={
             "appid" : 'wx09236611cba1fa77',
             "secret" : '0431676f306f490f7e74447f429c0ba4',
@@ -19,8 +18,8 @@ class login(APIView):
             "grant_type":'authorization_code'
         }
         result = requests.get(url='https://api.weixin.qq.com/sns/jscode2session',params=info)
-        #id = result.json()['openid']
-        id = 'guo'
+        id = result.json()['openid']
+        #id = 'guo'
         #session_key =result.json()['session_key']
         course_id_list = []
         course_type_list = []
@@ -29,6 +28,7 @@ class login(APIView):
         if wuser_info.objects.filter(opend_id=id).exists(): #如果用户存在
 
             if wuser_info.objects.filter(opend_id=id).first().role == '1':   # 如果是学生
+                name = wuser_info.objects.filter(opend_id=id).first().name
                 list2 = courese_selected.objects.filter(stu_id=id)  # 所有学生选过的课程
                 # ai_score_list=[]
                 for var in list2:
@@ -38,6 +38,7 @@ class login(APIView):
                   #  ai_score_list.append(var.ai_scoure_one)
                 return Response({
                     'open_id': id,
+                    'name':name,
                     #'session_key':session_key,
                     'role': '1',
                     'course_id_list': course_id_list,
@@ -48,7 +49,7 @@ class login(APIView):
                 course_id = courese_selected.objects.filter(tea_id=id).first().cou_id
                 stud_list = []
                 stud_name_list = []
-
+                name = wuser_info.objects.filter(opend_id=id).first().name
                 all_fix = courese_selected.objects.filter(cou_id=course_id)
 
                 for var in all_fix:
@@ -58,6 +59,7 @@ class login(APIView):
 
                 return Response({
                     'open_id': id,
+                    'name': name,
                     #'session_key': session_key,
                     'role': '2',
                     'course_id':course_id,
@@ -66,7 +68,9 @@ class login(APIView):
                 })
 
             else:   # 依旧是普通游客
+                name = wuser_info.objects.filter(opend_id=id).first().name
                 return Response({
+                    'name':name,
                     'open_id': id,
                     #'session_key': session_key,
                     'role': '0'
@@ -77,7 +81,7 @@ class login(APIView):
             nowtime = time.localtime()
             realtime = ""
             realtime += str(nowtime.tm_year) + "-" + str(nowtime.tm_mon) + "-" + str(nowtime.tm_mday)
-            wuser_info.objects.create(opend_id=id, res_time=realtime, role = '0')
+            wuser_info.objects.create(opend_id=id, res_time=realtime, role = '0', name = username)
             return Response({
             # 'course_id_list': course_id_list,  # 返回空的值?
 
