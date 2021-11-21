@@ -84,9 +84,8 @@ class login(APIView):
             wuser_info.objects.create(opend_id=id, res_time=realtime, role = '0', name = username)
             return Response({
             # 'course_id_list': course_id_list,  # 返回空的值?
-
+                'name': username,
                 'open_id': id,
-                #'session_key': session_key,
                 'role': '0'
             })
 

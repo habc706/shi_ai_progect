@@ -10,7 +10,6 @@ from rest_framework.response import Response
 如果用户填写的邀请码没有错,那返回的errmsg都是ok，如果邀请码填写错误是invitation fill in error!
 如果是身份不对应(老师填了学生的，学生填了老师的),errmsg是role do not match
 此外，确保openid是已经存在的，先登录才可以使用该接口
-
 '''
 
 class vertify(APIView):
