@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login.login.as_view()),
     path('vertify/', vertify.vertify.as_view()),
-    # path('tes/', tes.tes.as_view()),
+    path('tes/', tes.tes.as_view()),
     path('get_all_score/',get_all_score.get_all_score.as_view()),
     path('renew/', fu.renew.as_view()),
     path('real_name/',real_name.real_name.as_view()),

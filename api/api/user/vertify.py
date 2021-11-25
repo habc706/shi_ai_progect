@@ -18,11 +18,14 @@ class vertify(APIView):
         invitation=request.data.get('invitation')
         #openid='tresrasd'
         ### role  courseid 根据邀请码切片得到
-        role =''
-        courseid=''
+
+        role = invitation[-1]
+
+        courseid=invitation[:-1]
 
         # 根据courseid和用户特色信息（openid）得到selected_course_id
-        selected_course_id = ''
+
+        selected_course_id = courseid+openid[:10]
         '''防止邀请码填写错误'''
         if course.objects.filter(course_id=courseid).exists():  # 如果课程存在,即，没有填错信息
 
@@ -34,6 +37,7 @@ class vertify(APIView):
                     return Response({
                         'errmsg': 'role do not match'
                     })
+
 
             if courese_selected.objects.filter(cou_se_id=selected_course_id).exists():  # 如果选课信息码存在，即重复填写了邀请码
                 return Response({

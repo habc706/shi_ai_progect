@@ -1,5 +1,5 @@
 from database.models import wuser_info
-from database.models import course
+
 from database.models import courese_selected
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -22,11 +22,15 @@ class renew(APIView):
                     stud_list.append(var.stu_id)  # 所有选了这个课的学生的id
                     stud_name_list.append(wuser_info.objects.filter(opend_id=var.stu_id).first().name)
             return Response({
+                'errsmg': 'ok',
                 'course_id': course_id,
                 'stud_id_list': stud_list,
                 'stud_name_list': stud_name_list
             })
-
+        else:
+            return Response({
+                'errsmg':'role error!'
+            })
 
 
 

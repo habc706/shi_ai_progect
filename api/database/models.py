@@ -12,6 +12,11 @@ class course(models.Model):
     course_id = models.CharField(primary_key=True,max_length=30)
     cou_info = models.CharField(max_length=300)
     cou_type = models.CharField(max_length=1)
+    frist_rule = models.CharField(max_length=200,default='')
+    frist_rule_weight = models.CharField(max_length=100,default='')
+    second_rule = models.CharField(max_length=250,null=True)
+    second_rule_weight = models.CharField(max_length=150,null=True)
+
     #打分规则填写
 
 
