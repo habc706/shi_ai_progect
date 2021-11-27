@@ -1,5 +1,4 @@
 from database.models import wuser_info
-
 from database.models import courese_selected
 from rest_framework.views import APIView
 from rest_framework.response import Response

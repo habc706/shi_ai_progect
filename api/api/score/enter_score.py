@@ -10,7 +10,13 @@ class enter_score(APIView):
         cou_id = request.get('cou_id')
         evaluate = request.get('evaluate')
 
-        course_score.objects.create(real_score=total_score,number=number,stud_id=stud_id,cou_id=cou_id,evaluate=evaluate)
-        return Response({
-            'errmsg': 'ok'
-        })
+        try:
+            course_score.objects.create(real_score=total_score, number=number, stud_id=stud_id, cou_id=cou_id,
+                                        evaluate=evaluate)
+            return Response({
+                'errmsg': 'ok'
+            })
+        except:
+            return Response({
+                'errmsg': 'fail'
+            })

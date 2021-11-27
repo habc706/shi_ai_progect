@@ -18,7 +18,15 @@ class course(models.Model):
     second_rule_weight = models.CharField(max_length=150,null=True)
 
     #打分规则填写
-
+class ai_score_storage(models.Model):
+    lujing = models.CharField(max_length=60,default='')
+    fluency_score = models.FloatField()
+    integrity_score = models.FloatField()
+    phone_score= models.FloatField()
+    total_score= models.FloatField()
+    tone_score= models.FloatField()
+    content= models.CharField(max_length=300,default='')
+    is_rejected = models.BooleanField()
 
 class course_score(models.Model):
     score_id = models.AutoField(primary_key= True, default='1')  # 注意这里不能是直接的数字
