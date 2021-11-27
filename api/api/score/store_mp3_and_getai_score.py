@@ -28,7 +28,7 @@ STATUS_FIRST_FRAME = 0  # 第一帧的标识
 STATUS_CONTINUE_FRAME = 1  # 中间帧标识
 STATUS_LAST_FRAME = 2  # 最后一帧的标识
 def get_time(couse_id):
-    return 'C:\\Users\\Lenovo\\Desktop\\01\\'+couse_id+'\\'
+    return '/home/python_project/test_shi_ai/mp3/'+couse_id+'/'
 
 class store_mp3_and_getai_score(APIView):
     def post(self,request,*args,**kwargs):  # 由于调用ai接口的一些特殊写法，需要把许多类和方法再写进这个post函数里面
@@ -107,21 +107,21 @@ class store_mp3_and_getai_score(APIView):
             except Exception as e:
                 print("receive msg,but parse exception:", e)
 
-        # 收到websocket错误的处理
+        #收到websocket错误的处理
         def on_error(ws, error):
             pass
 
-        # 收到websocket关闭的处理
+        #收到websocket关闭的处理
         def on_close(ws):
             pass
         def on_data(ws, str, data_type, continue_type):  # data是从服务器接收到的字符串
             pass
-            # print(str)
-            # print(data)
-            #
-            # print(data_type)
-            # print(continue_type)
-        # 收到websocket连接建立的处理
+            print(str)
+            print(data)
+
+            print(data_type)
+            print(continue_type)
+        #收到websocket连接建立的处理
         def on_open(ws):
             def run(*args):
                 frameSize = 1280  # 每一帧的音频大小
@@ -184,11 +184,11 @@ class store_mp3_and_getai_score(APIView):
                 audio_file_path = wenjian
 
                 str0 = test_text
-                # 待评测文本 utf8 编码，需要加utf8bom 头
+                #待评测文本 utf8 编码，需要加utf8bom 头
                 TEXT = '\uFEFF' + str0
-                # 直接从文件读取的方式
-                # TEXT = '\uFEFF'+ open("cn/read_sentence_cn.txt","r",encoding='utf-8').read()
-                # APPID、APISecret、APIKey信息在控制台——语音评测了（流式版）——服务接口认证信息处即可获取
+                #直接从文件读取的方式
+                TEXT = '\uFEFF'+ open("cn/read_sentence_cn.txt","r",encoding='utf-8').read()
+                #APPID、APISecret、APIKey信息在控制台——语音评测了（流式版）——服务接口认证信息处即可获取
                 wsParam = Ws_Param(APPID='42989e8d', APISecret='Yzg4NjMxMTRlOTdhZTYyMTM4MTEyMzJi',
                                    APIKey='2a8365fffbb5d0775c452ad0c41a2cd1',
                                    AudioFile=audio_file_path, Text=TEXT)
@@ -221,15 +221,15 @@ class store_mp3_and_getai_score(APIView):
                     errmesg+='database error '
 
 
-
+                data['content']='qnmd'
                 errmesg+=' get ai score successfully '
             except Exception:
                 errmesg +=' get ai score error '
 
             finally:
-                final_result ={
-                    'errmesg': errmesg,
-                    'data':data
-                }
 
-                return Response(final_result)
+                return Response({
+                    'errmesg': errmesg,
+                    'data': data,
+                    'tes':'qnmd'
+                })

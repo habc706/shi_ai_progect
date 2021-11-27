@@ -26,6 +26,7 @@ urlpatterns = [
     path('get_all_score/',get_all_score.get_all_score.as_view()),
     path('renew/', fu.renew.as_view()),
     path('real_name/',real_name.real_name.as_view()),
-    path('enter_score/',enter_score.enter_score.as_view()), # store_mp3_and_getai_score
+    path('enter_score/',enter_score.enter_score.as_view()), # store_mp3_and_getai_score store_score_mp3
     path('store_mp3_and_getai_score/',store_mp3_and_getai_score.store_mp3_and_getai_score.as_view())
+
 ]
