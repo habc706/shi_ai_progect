@@ -217,11 +217,11 @@ class store_mp3_and_getai_score(APIView):
                                                     content=data['content'], is_rejected=data['is_rejected'].capitalize()
                                                     )  # 返回的是false python 要的是False!!!!!!!!!!!
                 except Exception as e:  # integrity_score
-                    print(e)
+                    
                     errmesg+='database error '
 
 
-                data['content']='qnmd'
+                
                 errmesg+=' get ai score successfully '
             except Exception:
                 errmesg +=' get ai score error '
@@ -231,5 +231,5 @@ class store_mp3_and_getai_score(APIView):
                 return Response({
                     'errmesg': errmesg,
                     'data': data,
-                    'tes':'qnmd'
+                    
                 })
