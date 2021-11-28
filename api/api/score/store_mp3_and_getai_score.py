@@ -189,8 +189,8 @@ class store_mp3_and_getai_score(APIView):
                 #直接从文件读取的方式
                 TEXT = '\uFEFF'+ open("cn/read_sentence_cn.txt","r",encoding='utf-8').read()
                 #APPID、APISecret、APIKey信息在控制台——语音评测了（流式版）——服务接口认证信息处即可获取
-                wsParam = Ws_Param(APPID='42989e8d', APISecret='Yzg4NjMxMTRlOTdhZTYyMTM4MTEyMzJi',
-                                   APIKey='2a8365fffbb5d0775c452ad0c41a2cd1',
+                wsParam = Ws_Param(APPID='', APISecret='',
+                                   APIKey='',
                                    AudioFile=audio_file_path, Text=TEXT)
                 websocket.enableTrace(False)
                 wsUrl = wsParam.create_url()
